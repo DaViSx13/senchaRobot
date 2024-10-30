@@ -1,6 +1,7 @@
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.WindowType;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -12,7 +13,7 @@ public class SomeTest {
     public SelenideElement myActiveTicketsGrid = $x("//span[text()='Basic Grid']");
 
 
-    public SelenideElement password_input = $("div.password input");
+    public SelenideElement passwordInput = $("div.password input");
     public SelenideElement btnLogin = $x("//span[text()='Login']");
 
 
@@ -28,9 +29,14 @@ public class SomeTest {
         //loadIndicator.should(exist);
         //loadIndicator.should(disappear);
 
-        Selenide.sleep(5000);
+
+        //Selenide.sleep(5000);
+        switchTo().frame( $x("//iframe") );
+        passwordInput.shouldBe(visible).setValue("111");
         btnLogin.shouldBe(visible).click();
-        password_input.shouldBe(visible).setValue("111");
+        Selenide.sleep(5000);
+        switchTo().newWindow(WindowType.TAB);
+        Selenide.sleep(5000);
 
 //        Selenide.sleep(500);
 //        System.out.println(x.size());
